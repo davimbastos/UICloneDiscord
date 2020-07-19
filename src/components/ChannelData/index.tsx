@@ -1,15 +1,52 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
-import { Container, Title, ExpandIcon } from './styles';
+import ChannelMessage, { Mention } from '../ChannelMessage';
 
-const ServerName: React.FC = () => {
+import { Container, Messages, InputWrapper, Input, InputIcon } from './styles';
+
+const ChannelData: React.FC = () => {
+    const messagesRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+
+    useEffect(() => {
+        const div = messagesRef.current;
+
+        if (div) {
+            div.scrollTop = div.scrollHeight;
+        }
+    }, [messagesRef] );
+
     return (
         <Container>
-            <Title>Servidor do Davi</Title>
+            <Messages ref={messagesRef}>
+                {Array.from(Array(15).keys()).map((n) =>(
+                    <ChannelMessage 
+                        key={n}
+                        author="Davi Bastos"
+                        date="18/07/2020"
+                        content="Minha primeira messagem!"
+                    />
+                ))}
+                
 
-            <ExpandIcon />
+                <ChannelMessage 
+                    author="Alquipo Neto"
+                    date="18/07/2020"
+                    content={
+                        <>
+                            <Mention>@Davi Bastos</Mention>, partiu Brotherhood?
+                        </>
+                    }
+                    hasMention
+                    isBot
+                />
+            </Messages>
+
+            <InputWrapper>
+                <Input type="text" placeholder="Conversar em #chat-livre" />
+                <InputIcon />
+            </InputWrapper>
         </Container>
     );
 };
 
-export default ServerName;
+export default ChannelData;

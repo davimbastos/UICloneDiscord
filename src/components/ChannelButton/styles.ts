@@ -35,14 +35,15 @@ export const Container = styled.div`
             color: var(--white);
         }
 
-        > div svg {
+        > div:not(:first-child) svg {
         display: initial;
     }
     }
 
-    > div svg {
+    > div:not(:first-child) svg {
         display: none;
     }
+
 `;
 
 export const HashtagIcon = styled(Hashtag)`
@@ -50,6 +51,7 @@ export const HashtagIcon = styled(Hashtag)`
     height: 20px;
 
     color: var(--symbol);
+
 `;
 
 export const InviteIcon = styled(PersonAdd)`
